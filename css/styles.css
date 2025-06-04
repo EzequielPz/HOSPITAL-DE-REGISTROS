@@ -1,0 +1,100 @@
+/* Fondo y estilos generales */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+}
+
+/* Cabecera con fondo atractivo */
+header {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 20px;
+}
+
+/* Gradiente en botones y elementos */
+.btn-primary {
+  background: #4e54c8;
+  border: none;
+}
+.btn-success {
+  background: #00b09b;
+  border: none;
+}
+.btn-danger {
+  background: #ff4e50;
+  border: none;
+}
+.btn-warning {
+  background: #f7971e;
+  border: none;
+}
+.btn-info {
+  background: #36d1dc;
+  border: none;
+}
+
+/* Estilos para los botones de gravedad */
+.btn-gravedad {
+  min-width: 80px;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  color: #fff;
+  border: none;
+}
+.btn-leve {
+  background-color: #28a745;
+}
+.btn-moderado {
+  background-color: #ffc107;
+  color: #212529;
+}
+.btn-urgente {
+  background-color: #fd7e14;
+}
+.btn-critico {
+  background-color: #dc3545;
+}
+
+/* Fondo semi-transparente para la sección de cuentas */
+#authSection {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+/* Mejoras en los formularios */
+.form-control:focus {
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+/* Otros estilos */
+h2 {
+  letter-spacing: 1px;
+}
+/* Colores para botones de gravedad */
+.btn-leve {
+  background-color: #28a745; /* Verde */
+  color: #fff;
+}
+.btn-moderado {
+  background-color: #ffc107; /* Amarillo/Naranja */
+  color: #212529;
+}
+.btn-urgente {
+  background-color: #fd7e14; /* Naranja */
+  color: #fff;
+}
+.btn-critico {
+  background-color: #dc3545; /* Rojo */
+  color: #fff;
+}
+
+/* Opcional: efecto hover para botones de gravedad */
+.btn-gravedad:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}

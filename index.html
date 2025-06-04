@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hospital Emergencias - Sistema</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  
+  <!-- Cabecera -->
+  <header class="bg-gradient p-4 text-white text-center shadow-lg">
+    <h1 class="mb-3">Hospital de Emergencias</h1>
+    <div class="d-flex justify-content-center gap-3">
+      <button id="btnCrearCuenta" class="btn btn-warning fw-bold">Crear Cuenta</button>
+      <button id="btnIniciarSesion" class="btn btn-info fw-bold">Iniciar Sesión</button>
+    </div>
+  </header>
+
+  <!-- Sección de Autenticación -->
+  <div class="container my-5 d-flex justify-content-center" id="authSection">
+    <!-- Crear Cuenta -->
+    <div id="crearCuentaDiv" class="card p-4 shadow-lg w-100" style="max-width: 500px; display:none;">
+      <h2 class="text-center mb-4 text-primary">Crear Cuenta</h2>
+      <form id="formCrearCuenta" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="nombreUsuario" class="form-label">Nombre de Usuario</label>
+          <input type="text" class="form-control" id="nombreUsuario" required />
+          <div class="invalid-feedback">Por favor ingresa un nombre válido.</div>
+        </div>
+        <div class="mb-3">
+          <label for="emailUsuario" class="form-label">Correo Electrónico</label>
+          <input type="email" class="form-control" id="emailUsuario" required />
+          <div class="invalid-feedback">Ingresa un correo válido.</div>
+        </div>
+        <div class="mb-3 position-relative">
+          <label for="contrasena" class="form-label">Contraseña</label>
+          <div class="input-group">
+            <input type="password" class="form-control" id="contrasena" required />
+            <button class="btn btn-outline-secondary" type="button" id="mostrarContrasena">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
+          <div class="invalid-feedback">Por favor ingresa una contraseña.</div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mt-3">Crear Cuenta</button>
+        <div class="text-center mt-3">
+          <a href="#" id="irAIniciarSesion" class="text-decoration-none">¿Ya tienes cuenta? Inicia sesión</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- Iniciar Sesión -->
+    <div id="loginDiv" class="card p-4 shadow-lg w-100" style="max-width: 400px; display:none;">
+      <h2 class="text-center mb-4 text-success">Iniciar Sesión</h2>
+      <form id="formLogin" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="loginUsuario" class="form-label">Nombre de Usuario</label>
+          <input type="text" class="form-control" id="loginUsuario" required />
+          <div class="invalid-feedback">Ingresa tu nombre de usuario.</div>
+        </div>
+        <div class="mb-3 position-relative">
+          <label for="loginContrasena" class="form-label">Contraseña</label>
+          <div class="input-group">
+            <input type="password" class="form-control" id="loginContrasena" required />
+            <button class="btn btn-outline-secondary" type="button" id="mostrarLoginContrasena">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
+          <div class="invalid-feedback">Ingresa tu contraseña.</div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <input type="checkbox" id="recuerdame" />
+            <label for="recuerdame" class="form-label ms-2">Recuérdame</label>
+          </div>
+          <a href="#" id="olvidasteContrasena" class="text-decoration-none text-danger fw-semibold">¿Olvidaste la contraseña?</a>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Iniciar Sesión</button>
+        <div class="text-center mt-3">
+          <a href="#" id="irACrearCuenta" class="text-decoration-none">¿No tienes cuenta? Crea una</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Página principal -->
+  <div class="container my-4 d-none" id="mainPage">
+
+    <!-- Barra de cierre -->
+    <div class="d-flex justify-content-end mb-3">
+      <button id="cerrarSesion" class="btn btn-danger fw-semibold">Cerrar Sesión</button>
+    </div>
+
+    <!-- Sección de registro -->
+    <div class="row g-4">
+      <!-- Registro de pacientes -->
+      <div class="col-lg-6">
+        <div class="card p-4 shadow-lg h-100" style="overflow:auto;">
+          <h3 class="text-center mb-4 text-primary">Registro de Pacientes</h3>
+          <form id="formPaciente" class="needs-validation" novalidate>
+            <div class="mb-3">
+              <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+              <input type="text" class="form-control" id="nombreCompleto" required />
+              <div class="invalid-feedback">Por favor ingresa el nombre completo.</div>
+            </div>
+            <div class="mb-3">
+              <label for="edad" class="form-label">Edad</label>
+              <input type="number" class="form-control" id="edad" min="1" required />
+              <div class="invalid-feedback">Edad debe ser mayor a 0.</div>
+            </div>
+            <div class="mb-3">
+              <label for="genero" class="form-label">Género</label>
+              <select class="form-select" id="genero" required>
+                <option value="" disabled selected>Seleccione género</option>
+                <option value="Hombre">Hombre</option>
+                <option value="Mujer">Mujer</option>
+                <option value="Otro">Otro</option>
+              </select>
+              <div class="invalid-feedback">Por favor selecciona un género.</div>
+            </div>
+            <div class="mb-3">
+              <label for="docIdentidad" class="form-label">Documento de Identidad</label>
+              <input type="text" class="form-control" id="docIdentidad" required />
+              <div class="invalid-feedback">Debe tener al menos 5 caracteres.</div>
+            </div>
+            <div class="mb-3">
+              <label for="sintomas" class="form-label">Síntomas</label>
+              <textarea class="form-control" id="sintomas" rows="3" required></textarea>
+              <div class="invalid-feedback">Por favor describe los síntomas.</div>
+            </div>
+            <div class="mb-3">
+              <label for="nivel" class="form-label">Nivel de gravedad</label>
+              <select class="form-select" id="nivel" required>
+                <option value="" disabled selected>Seleccione nivel</option>
+                <option value="Leve">Leve</option>
+                <option value="Moderado">Moderado</option>
+                <option value="Urgente">Urgente</option>
+                <option value="Crítico">Crítico</option>
+              </select>
+              <div class="invalid-feedback">Seleccione el nivel de gravedad.</div>
+            </div>
+            <div class="mb-3">
+              <label for="tratamiento" class="form-label">Tratamiento</label>
+              <input type="text" class="form-control" id="tratamiento" required />
+              <div class="invalid-feedback">Ingresa el tratamiento.</div>
+            </div>
+            <div class="mb-3">
+              <label for="medicamentos" class="form-label">Medicamentos</label>
+              <input type="text" class="form-control" id="medicamentos" required />
+              <div class="invalid-feedback">Ingresa los medicamentos.</div>
+            </div>
+            <div class="mb-3">
+              <label for="examenes" class="form-label">Exámenes</label>
+              <select class="form-select" id="examenes" required>
+                <option value="" disabled selected>Seleccione examen</option>
+                <option value="Análisis de sangre">Análisis de sangre</option>
+                <option value="Radiografía">Radiografía</option>
+                <option value="Tomografía">Tomografía</option>
+                <option value="Ecografía">Ecografía</option>
+                <option value="MRI">MRI</option>
+              </select>
+              <div class="invalid-feedback">Seleccione un examen.</div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-3">Registrar Paciente</button>
+          </form>
+        </div>
+      </div>
+      <!-- Tabla de pacientes -->
+      <div class="col-lg-6">
+        <div class="card p-3 shadow-lg h-100" style="overflow:auto;">
+          <h3 class="text-center mb-4 text-primary">Pacientes Registrados</h3>
+          <table class="table table-striped table-hover" id="tablaPacientes">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Género</th>
+                <th>Documento</th>
+                <th>Síntomas</th>
+                <th>Gravedad</th>
+                <th>Tratamiento</th>
+                <th>Medicamentos</th>
+                <th>Examen</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div class="mt-2">
+            <p><strong>Total Pacientes:</strong> <span id="contadorPacientes">0</span></p>
+            <p><strong>Críticos:</strong> <span id="contadorCritico">0</span></p>
+            <p><strong>Urgentes:</strong> <span id="contadorUrgente">0</span></p>
+            <p><strong>Moderados:</strong> <span id="contadorModerado">0</span></p>
+            <p><strong>Leves:</strong> <span id="contadorLeve">0</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección citas -->
+    <div class="row g-4 mt-4">
+      <div class="col-lg-6">
+        <div class="card p-4 shadow-lg">
+          <h3 class="text-center mb-4 text-primary">Citas con Doctores</h3>
+          <form id="formCita" class="needs-validation" novalidate>
+            <div class="mb-3">
+              <label for="doctorSelect" class="form-label">Selecciona Doctor</label>
+              <select class="form-select" id="doctorSelect" required>
+                <option value="" disabled selected>Elige un doctor</option>
+                <option value="Dr. Ana Pérez">Dr. Ana Pérez</option>
+                <option value="Dr. Luis Gómez">Dr. Luis Gómez</option>
+                <option value="Dra. María López">Dra. María López</option>
+                <option value="Dr. Carlos Ruiz">Dr. Carlos Ruiz</option>
+                <option value="Dra. Laura Sánchez">Dra. Laura Sánchez</option>
+                <option value="Dr. Juan Torres">Dr. Juan Torres</option>
+                <option value="Dra. Rosa Morales">Dra. Rosa Morales</option>
+                <option value="Dr. Pedro Díaz">Dr. Pedro Díaz</option>
+              </select>
+              <div class="invalid-feedback">Selecciona un doctor.</div>
+            </div>
+            <div class="mb-3">
+              <label for="fechaCita" class="form-label">Fecha de Cita</label>
+              <input type="date" class="form-control" id="fechaCita" required />
+              <div class="invalid-feedback">Selecciona una fecha válida.</div>
+            </div>
+            <div class="mb-3">
+              <label for="horaCita" class="form-label">Hora de la Cita</label>
+              <input type="time" class="form-control" id="horaCita" required />
+              <div class="invalid-feedback">Selecciona una hora.</div>
+            </div>
+            <button class="btn btn-primary w-100" type="submit">Agendar Cita</button>
+          </form>
+        </div>
+      </div>
+      <!-- Lista citas -->
+      <div class="col-lg-6">
+        <div class="card p-3 shadow-lg" style="overflow:auto; max-height:80vh;">
+          <h3 class="text-center mb-4 text-primary">Citas Programadas</h3>
+          <ul class="list-group" id="listaCitas"></ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
